@@ -124,6 +124,53 @@ window.addEventListener("load", () => {
   resultInput.value = "";
 });
 
+window.addEventListener("keypress", (e) => {
+  let pressed = e.key;
+  if (repeat < 5) {
+    if (pressed == ".") {
+      morseInput.value += String(pressed);
+      repeat++;
+    } else if (pressed == "-") {
+      morseInput.value += String(pressed);
+      repeat++;
+    }
+  }
+
+  if (pressed == "/") {
+    if (morseInput.value != "") {
+      if (morseInput.value.charAt(morseInput.value.length - 1) != "/") {
+        if (morseInput.value.charAt(morseInput.value.length - 1) != " ") {
+          morseInput.value += pressed;
+          repeat = 0;
+        }
+      }
+    }
+  }
+
+  if (pressed == " ") {
+    if (morseInput.value != "") {
+      if (morseInput.value.charAt(morseInput.value.length - 1) != "/") {
+        if (morseInput.value.charAt(morseInput.value.length - 1) != " ") {
+          morseInput.value += " ";
+          repeat = 0;
+        }
+      }
+    }
+  }
+
+  if (pressed == "Enter") {
+    try {
+      let result = translate(morseInput.value);
+
+      resultInput.value = result;
+    } catch (error) {
+      resultInput.value = "Error!!!";
+    }
+  }
+
+  console.log(pressed);
+});
+
 //// Functions ////
 function translate(str) {
   str = String(str);
